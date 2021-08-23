@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import colors from '../constants/colors'
 import CustomFlatButton from '../components/CustomFlatButton'
+import { OPTIONSCREEN } from '../constants/screens'
 const screen = Dimensions.get('window')
 
 const styles = StyleSheet.create({
@@ -60,7 +61,7 @@ const HomeScreen = ({ navigation }) => {
       <SafeAreaView style={styles.start_button}>
         <CustomFlatButton
           text={"Let's Start"}
-          onPress={() => navigation.navigate('OptionScreen')}
+          onPress={() => navigation.navigate(OPTIONSCREEN)}
           btnBgColor={colors.red}
         />
       </SafeAreaView>
