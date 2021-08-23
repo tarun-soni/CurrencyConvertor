@@ -47,9 +47,10 @@ const styles = StyleSheet.create({
 const ConversionInput = ({
   text,
   inputValue,
-  setInputValue,
-  onButtonPress,
   editable,
+  onButtonPress,
+  keyboardType,
+  onChangeText,
 }) => {
   const containerStyles = [styles.input_container]
   if (!editable) containerStyles.push(styles.containerDisabled)
@@ -62,7 +63,8 @@ const ConversionInput = ({
       <TextInput
         style={styles.input}
         value={inputValue}
-        onChangeText={text => setInputValue(text)}
+        keyboardType={keyboardType}
+        onChangeText={onChangeText}
       />
     </View>
   )

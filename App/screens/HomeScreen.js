@@ -1,5 +1,12 @@
 import React from 'react'
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native'
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import colors from '../constants/colors'
 import CustomFlatButton from '../components/CustomFlatButton'
 import { CONVERTSCREEN } from '../constants/screens'
@@ -26,14 +33,15 @@ const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={colors.black} />
+
       <AppLogo />
-      <SafeAreaView style={styles.start_button}>
+      <View style={styles.start_button}>
         <CustomFlatButton
           text={"Let's Start"}
           onPress={() => navigation.navigate(CONVERTSCREEN)}
           btnBgColor={colors.red}
         />
-      </SafeAreaView>
+      </View>
     </SafeAreaView>
   )
 }
