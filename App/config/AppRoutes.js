@@ -1,6 +1,16 @@
-import { CONVERTSCREEN, HOMESCREEN } from '../constants/screens'
+import {
+  CONVERTSCREEN,
+  CURRENCYLISTSCREEN,
+  HOMESCREEN,
+} from '../constants/screens'
 import HomeScreen from '../screens/HomeScreen'
 import ConvertScreen from '../screens/ConvertScreen'
+import CurrencyList from '../screens/CurrencyList'
+
+const currencyOptions = ({ route }) => ({
+  title: route?.params?.title,
+})
+
 export default AppRoutes = [
   {
     name: HOMESCREEN,
@@ -12,5 +22,10 @@ export default AppRoutes = [
     name: CONVERTSCREEN,
     component: ConvertScreen,
     options: {},
+  },
+  {
+    name: CURRENCYLISTSCREEN,
+    component: CurrencyList,
+    options: currencyOptions,
   },
 ]

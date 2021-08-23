@@ -19,6 +19,8 @@ import { format } from 'date-fns'
 import colors from '../constants/colors'
 import CustomFlatButton from '../components/CustomFlatButton'
 import { useEffect } from 'react'
+
+import { CURRENCYLISTSCREEN } from '../constants/screens'
 const screen = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const ConvertScreen = () => {
+const ConvertScreen = ({ navigation }) => {
   const [inputValue, setInputValue] = useState()
   const baseCurrency = 'USD'
   const quoteCurrency = 'INR'
@@ -90,7 +92,11 @@ const ConvertScreen = () => {
                 <ConversionInput
                   text={baseCurrency}
                   value={inputValue}
-                  onButtonPress={() => {}}
+                  onButtonPress={() => {
+                    navigation.push(CURRENCYLISTSCREEN, {
+                      title: 'Base Currency',
+                    })
+                  }}
                   keyboardType="numeric"
                   onChangeText={text => setInputValue(text)}
                   editable
@@ -98,7 +104,11 @@ const ConvertScreen = () => {
                 <ConversionInput
                   text={quoteCurrency}
                   value={inputValue}
-                  onButtonPress={() => {}}
+                  onButtonPress={() => {
+                    navigation.push(CURRENCYLISTSCREEN, {
+                      title: 'Quote Currency',
+                    })
+                  }}
                   keyboardType="numeric"
                   onChangeText={text => setInputValue(text)}
                   editable
