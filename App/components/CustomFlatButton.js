@@ -1,16 +1,16 @@
 import React from 'react'
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native'
 
-const CustomFlatButton = ({ text, onPress }) => {
+const CustomFlatButton = ({ text, onPress, btnBgColor }) => {
   const styles = StyleSheet.create({
     button: {
       borderRadius: 8,
       paddingVertical: 14,
       paddingHorizontal: 10,
-      backgroundColor: '#ffa151',
+      backgroundColor: btnBgColor,
     },
     button_text: {
-      color: 'white',
+      color: '#f9f9f9',
       fontWeight: 'bold',
       textTransform: 'uppercase',
       textAlign: 'center',
@@ -27,4 +27,8 @@ const CustomFlatButton = ({ text, onPress }) => {
   )
 }
 
+CustomFlatButton.defaultProps = {
+  text: 'ButtonText',
+  btnBgColor: '#111',
+}
 export default CustomFlatButton
