@@ -1,15 +1,16 @@
-import { HOMESCREEN, OPTIONSCREEN } from '../constants/screens'
+import { CONVERTSCREEN, HOMESCREEN } from '../constants/screens'
 import HomeScreen from '../screens/HomeScreen'
-import Options from '../screens/Options'
+import ConvertScreen from '../screens/ConvertScreen'
 export default AppRoutes = [
   {
     name: HOMESCREEN,
     component: HomeScreen,
     options: { headerShown: false },
   },
+
   {
-    name: OPTIONSCREEN,
-    component: Options,
+    name: CONVERTSCREEN,
+    component: ConvertScreen,
     options: {},
   },
 ]

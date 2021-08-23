@@ -1,11 +1,12 @@
 export default {
   white: '#fff',
   text: '#343434',
-  blue: '#4F6D7A',
+  bgBlue: '#98C1D9',
   textLight: '#797979',
   lightBlue: '#4fc3f7',
   bgBlack: '#293241',
   red: '#ee6c4d',
+  offWhite: '#e3e3e3',
 }
 
 // color pallete link

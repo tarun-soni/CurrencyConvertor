@@ -1,2 +1,2 @@
 export const HOMESCREEN = 'HomeScreen'
-export const OPTIONSCREEN = 'OptionScreen'
+export const CONVERTSCREEN = 'ConvertScreen'

@@ -11,12 +11,12 @@ export default App = () => {
       <MainStack.Navigator initialRouteName={HOMESCREEN}>
         {AppRoutes.map(route => (
           <MainStack.Screen
+            key={route.name}
             name={route.name}
             component={route.component}
             options={route.options}
           />
         ))}
-        {/* <MainStack.Screen name="OptionScreen" component={Options} /> */}
       </MainStack.Navigator>
     </NavigationContainer>
   )
