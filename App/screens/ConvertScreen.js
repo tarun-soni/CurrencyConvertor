@@ -22,6 +22,7 @@ import { useEffect } from 'react'
 
 import { CURRENCYLISTSCREEN } from '../constants/screens'
 import { ConversionContext } from '../context/ConverionContext'
+import { api } from '../utils/api'
 const screen = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
@@ -49,16 +50,13 @@ const styles = StyleSheet.create({
 })
 
 const ConvertScreen = ({ navigation }) => {
+  const { baseCurrency, quoteCurrency, reverseCurrenciesHandler, date, rates } =
+    useContext(ConversionContext)
   const [inputValue, setInputValue] = useState(100)
-
-  const conversionRate = 0.84
-  const date = new Date()
 
   const [isScrollEnabled, setIsScrollEnabled] = useState(true)
 
-  const { baseCurrency, quoteCurrency, reverseCurrenciesHandler } =
-    useContext(ConversionContext)
-
+  const conversionRate = rates[quoteCurrency]
   /**
    * alternative if not using keyboardAvoidoingView (the conmplete effect)
    * - also requires new component KeyboardSpacer, that gives granual control over spacing above the keyboard
@@ -90,6 +88,15 @@ const ConvertScreen = ({ navigation }) => {
       isBaseCurrency: false,
     })
   }
+
+  // useEffect(() => {
+  //   async function getConversionRates() {
+  //     const res = await api(`/latest?base=${baseCurrency}`)
+  //     console.log(`res`, res)
+  //   }
+
+  //   getConversionRates()
+  // }, [])
 
   return (
     <SafeAreaView style={styles.container}>
