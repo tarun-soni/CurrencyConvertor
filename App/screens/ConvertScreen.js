@@ -48,9 +48,10 @@ const styles = StyleSheet.create({
 })
 
 const ConvertScreen = ({ navigation }) => {
-  const [inputValue, setInputValue] = useState()
-  const baseCurrency = 'USD'
-  const quoteCurrency = 'INR'
+  const [inputValue, setInputValue] = useState(100)
+  const [baseCurrency, setBaseCurrency] = useState('USD')
+  const [quoteCurrency, setQuoteCurrency] = useState('INR')
+
   const conversionRate = 0.84
   const date = new Date()
 
@@ -74,6 +75,12 @@ const ConvertScreen = ({ navigation }) => {
   //     hideListener.remove()
   //   }
   // }, [])
+
+  const reverseCurrenciesHandler = () => {
+    setBaseCurrency(quoteCurrency)
+    setQuoteCurrency(baseCurrency)
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView scrollEnabled={isScrollEnabled}>
@@ -104,7 +111,10 @@ const ConvertScreen = ({ navigation }) => {
                 />
                 <ConversionInput
                   text={quoteCurrency}
-                  value={inputValue}
+                  value={
+                    inputValue &&
+                    `${(parseFloat(inputValue) * conversionRate).toFixed(2)}`
+                  }
                   onButtonPress={() => {
                     navigation.push(CURRENCYLISTSCREEN, {
                       title: 'Quote Currency',
@@ -125,7 +135,7 @@ const ConvertScreen = ({ navigation }) => {
                 {/* <Image source={require('../assets/images/reverse.png')} /> */}
                 <CustomFlatButton
                   text={'Revserse Currency'}
-                  onPress={() => {}}
+                  onPress={reverseCurrenciesHandler}
                   btnTextColor={colors.text}
                 />
               </View>

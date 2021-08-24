@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 
 const ConversionInput = ({
   text,
-  inputValue,
+  value,
   editable,
   onButtonPress,
   keyboardType,
@@ -62,7 +62,7 @@ const ConversionInput = ({
       </TouchableOpacity>
       <TextInput
         style={styles.input}
-        value={inputValue}
+        value={value.toString()}
         keyboardType={keyboardType}
         onChangeText={onChangeText}
       />
