@@ -12,6 +12,7 @@ const CurrencyList = ({ navigation, route = {} }) => {
   const insets = useSafeAreaInsets()
 
   const params = route.params || {}
+
   const onRefresh = useCallback(() => {
     setIsRefreshing(true)
     wait(1000).then(() => setIsRefreshing(false))
@@ -26,7 +27,10 @@ const CurrencyList = ({ navigation, route = {} }) => {
           return (
             <RowItem
               title={item}
-              onPress={() => navigation.pop()}
+              onPress={() => {
+                if (params.onChange) params.onChange(item)
+                navigation.pop()
+              }}
               iconOnRight={selected && <Text>Selected</Text>}
             />
           )

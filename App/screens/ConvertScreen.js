@@ -76,6 +76,21 @@ const ConvertScreen = ({ navigation }) => {
   //   }
   // }, [])
 
+  const onBaseCurrencyPress = () => {
+    navigation.push(CURRENCYLISTSCREEN, {
+      title: 'Base Currency',
+      activeCurrency: baseCurrency,
+      onChange: currency => setBaseCurrency(currency),
+    })
+  }
+  const onQuoteCurrencyPress = () => {
+    navigation.push(CURRENCYLISTSCREEN, {
+      title: 'Quote Currency',
+      activeCurrency: quoteCurrency,
+      onChange: currency => setQuoteCurrency(currency),
+    })
+  }
+
   const reverseCurrenciesHandler = () => {
     setBaseCurrency(quoteCurrency)
     setQuoteCurrency(baseCurrency)
@@ -99,12 +114,7 @@ const ConvertScreen = ({ navigation }) => {
                 <ConversionInput
                   text={baseCurrency}
                   value={inputValue}
-                  onButtonPress={() => {
-                    navigation.push(CURRENCYLISTSCREEN, {
-                      title: 'Base Currency',
-                      activeCurrency: baseCurrency,
-                    })
-                  }}
+                  onButtonPress={onBaseCurrencyPress}
                   keyboardType="numeric"
                   onChangeText={text => setInputValue(text)}
                   editable
@@ -115,12 +125,7 @@ const ConvertScreen = ({ navigation }) => {
                     inputValue &&
                     `${(parseFloat(inputValue) * conversionRate).toFixed(2)}`
                   }
-                  onButtonPress={() => {
-                    navigation.push(CURRENCYLISTSCREEN, {
-                      title: 'Quote Currency',
-                      activeCurrency: quoteCurrency,
-                    })
-                  }}
+                  onButtonPress={onQuoteCurrencyPress}
                   keyboardType="numeric"
                   onChangeText={text => setInputValue(text)}
                   editable
