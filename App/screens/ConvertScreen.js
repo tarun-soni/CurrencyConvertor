@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react'
 import {
   Dimensions,
@@ -21,6 +21,7 @@ import CustomFlatButton from '../components/CustomFlatButton'
 import { useEffect } from 'react'
 
 import { CURRENCYLISTSCREEN } from '../constants/screens'
+import { ConversionContext } from '../context/ConverionContext'
 const screen = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
@@ -49,13 +50,14 @@ const styles = StyleSheet.create({
 
 const ConvertScreen = ({ navigation }) => {
   const [inputValue, setInputValue] = useState(100)
-  const [baseCurrency, setBaseCurrency] = useState('USD')
-  const [quoteCurrency, setQuoteCurrency] = useState('INR')
 
   const conversionRate = 0.84
   const date = new Date()
 
   const [isScrollEnabled, setIsScrollEnabled] = useState(true)
+
+  const { baseCurrency, quoteCurrency, reverseCurrenciesHandler } =
+    useContext(ConversionContext)
 
   /**
    * alternative if not using keyboardAvoidoingView (the conmplete effect)
@@ -79,21 +81,14 @@ const ConvertScreen = ({ navigation }) => {
   const onBaseCurrencyPress = () => {
     navigation.push(CURRENCYLISTSCREEN, {
       title: 'Base Currency',
-      activeCurrency: baseCurrency,
-      onChange: currency => setBaseCurrency(currency),
+      isBaseCurrency: true,
     })
   }
   const onQuoteCurrencyPress = () => {
     navigation.push(CURRENCYLISTSCREEN, {
       title: 'Quote Currency',
-      activeCurrency: quoteCurrency,
-      onChange: currency => setQuoteCurrency(currency),
+      isBaseCurrency: false,
     })
-  }
-
-  const reverseCurrenciesHandler = () => {
-    setBaseCurrency(quoteCurrency)
-    setQuoteCurrency(baseCurrency)
   }
 
   return (
@@ -117,7 +112,7 @@ const ConvertScreen = ({ navigation }) => {
                   onButtonPress={onBaseCurrencyPress}
                   keyboardType="numeric"
                   onChangeText={text => setInputValue(text)}
-                  editable
+                  editable={true}
                 />
                 <ConversionInput
                   text={quoteCurrency}
@@ -127,8 +122,7 @@ const ConvertScreen = ({ navigation }) => {
                   }
                   onButtonPress={onQuoteCurrencyPress}
                   keyboardType="numeric"
-                  onChangeText={text => setInputValue(text)}
-                  editable
+                  editable={false}
                 />
 
                 <Text style={styles.text_footer}>

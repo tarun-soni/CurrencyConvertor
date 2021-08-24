@@ -7,8 +7,14 @@ import RowItem, { RowSeparator } from '../components/RowItem'
 
 import currencies from '../data/currencies.json'
 import { wait } from '../utils/wait'
+
+import { ConversionContext } from '../context/ConverionContext'
+import { useContext } from 'react'
 const CurrencyList = ({ navigation, route = {} }) => {
   const [isRefreshing, setIsRefreshing] = useState(false)
+
+  const { baseCurrency, quoteCurrency, setBaseCurrency, setQuoteCurrency } =
+    useContext(ConversionContext)
   const insets = useSafeAreaInsets()
 
   const params = route.params || {}
@@ -23,12 +29,16 @@ const CurrencyList = ({ navigation, route = {} }) => {
       <FlatList
         data={currencies}
         renderItem={({ item }) => {
-          const selected = params.activeCurrency === item
+          let selected = false
+          if (params.isBaseCurrency && item === baseCurrency) selected = true
+          else if (!params.isBaseCurrency && item === quoteCurrency)
+            selected = true
           return (
             <RowItem
               title={item}
               onPress={() => {
-                if (params.onChange) params.onChange(item)
+                if (params?.isBaseCurrency) setBaseCurrency(item)
+                else setQuoteCurrency(item)
                 navigation.pop()
               }}
               iconOnRight={selected && <Text>Selected</Text>}
