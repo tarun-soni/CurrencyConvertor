@@ -11,8 +11,10 @@ export const ConversionContextProvider = ({ children }) => {
   const [quoteCurrency, setQuoteCurrency] = useState('INR')
   const [rates, setRates] = useState({})
   const [date, setDate] = useState()
+  const [isLoading, setIsLoading] = useState(true)
   const setBaseCurrency = async currency => {
     try {
+      setIsLoading(true)
       _setBaseCurrency(currency)
       const res = await api(`/latest?base=${currency}`)
       setDate(res.date)
@@ -20,6 +22,8 @@ export const ConversionContextProvider = ({ children }) => {
     } catch (error) {
       Alert.alert('Something went wrong', error.message)
       console.log(`error`, error.message)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -36,6 +40,8 @@ export const ConversionContextProvider = ({ children }) => {
     setQuoteCurrency,
     date,
     rates,
+    isLoading,
+    setIsLoading,
   }
 
   useEffect(() => {

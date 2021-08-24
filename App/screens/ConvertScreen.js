@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useState } from 'react'
 import {
+  ActivityIndicator,
   Dimensions,
   Image,
   Keyboard,
@@ -50,8 +51,14 @@ const styles = StyleSheet.create({
 })
 
 const ConvertScreen = ({ navigation }) => {
-  const { baseCurrency, quoteCurrency, reverseCurrenciesHandler, date, rates } =
-    useContext(ConversionContext)
+  const {
+    baseCurrency,
+    quoteCurrency,
+    reverseCurrenciesHandler,
+    date,
+    rates,
+    isLoading,
+  } = useContext(ConversionContext)
   const [inputValue, setInputValue] = useState(100)
 
   const [isScrollEnabled, setIsScrollEnabled] = useState(true)
@@ -108,45 +115,58 @@ const ConvertScreen = ({ navigation }) => {
             <AppLogo />
             <Text style={styles.text_header}>Currency Converter</Text>
           </View>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.container}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <View>
-                <ConversionInput
-                  text={baseCurrency}
-                  value={inputValue}
-                  onButtonPress={onBaseCurrencyPress}
-                  keyboardType="numeric"
-                  onChangeText={text => setInputValue(text)}
-                  editable={true}
-                />
-                <ConversionInput
-                  text={quoteCurrency}
-                  value={
-                    inputValue &&
-                    `${(parseFloat(inputValue) * conversionRate).toFixed(2)}`
-                  }
-                  onButtonPress={onQuoteCurrencyPress}
-                  keyboardType="numeric"
-                  editable={false}
-                />
 
-                <Text style={styles.text_footer}>
-                  {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${
-                    date && format(new Date(date), 'MMM do, yyyy')
-                  }`}
-                </Text>
+          {isLoading ? (
+            <ActivityIndicator
+              color={colors.white}
+              size={'large'}
+              style={{ marginVertical: 40 }}
+            />
+          ) : (
+            <>
+              <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={styles.container}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                  <View>
+                    <ConversionInput
+                      text={baseCurrency}
+                      value={inputValue}
+                      onButtonPress={onBaseCurrencyPress}
+                      keyboardType="numeric"
+                      onChangeText={text => setInputValue(text)}
+                      editable={true}
+                    />
+                    <ConversionInput
+                      text={quoteCurrency}
+                      value={
+                        inputValue &&
+                        `${(parseFloat(inputValue) * conversionRate).toFixed(
+                          2,
+                        )}`
+                      }
+                      onButtonPress={onQuoteCurrencyPress}
+                      keyboardType="numeric"
+                      editable={false}
+                    />
 
-                {/* <Image source={require('../assets/images/reverse.png')} /> */}
-                <CustomFlatButton
-                  text={'Revserse Currency'}
-                  onPress={reverseCurrenciesHandler}
-                  btnTextColor={colors.text}
-                />
-              </View>
-            </TouchableWithoutFeedback>
-          </KeyboardAvoidingView>
+                    <Text style={styles.text_footer}>
+                      {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${
+                        date && format(new Date(date), 'MMM do, yyyy')
+                      }`}
+                    </Text>
+
+                    {/* <Image source={require('../assets/images/reverse.png')} /> */}
+                    <CustomFlatButton
+                      text={'Revserse Currency'}
+                      onPress={reverseCurrenciesHandler}
+                      btnTextColor={colors.text}
+                    />
+                  </View>
+                </TouchableWithoutFeedback>
+              </KeyboardAvoidingView>
+            </>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
