@@ -23,9 +23,10 @@ const styles = StyleSheet.create({
   },
 })
 
-export default RowItem = ({ title, onPress }) => (
+export default RowItem = ({ title, onPress, iconOnRight }) => (
   <TouchableOpacity onPress={onPress} style={styles.row}>
     <Text style={styles.title}>{title}</Text>
+    {iconOnRight}
   </TouchableOpacity>
 )
 

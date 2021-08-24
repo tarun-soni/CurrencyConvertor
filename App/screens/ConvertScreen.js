@@ -95,6 +95,7 @@ const ConvertScreen = ({ navigation }) => {
                   onButtonPress={() => {
                     navigation.push(CURRENCYLISTSCREEN, {
                       title: 'Base Currency',
+                      activeCurrency: baseCurrency,
                     })
                   }}
                   keyboardType="numeric"
@@ -107,6 +108,7 @@ const ConvertScreen = ({ navigation }) => {
                   onButtonPress={() => {
                     navigation.push(CURRENCYLISTSCREEN, {
                       title: 'Quote Currency',
+                      activeCurrency: quoteCurrency,
                     })
                   }}
                   keyboardType="numeric"
